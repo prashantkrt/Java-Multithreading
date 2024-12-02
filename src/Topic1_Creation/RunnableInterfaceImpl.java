@@ -4,13 +4,13 @@ package Topic1_Creation;
 // Thread class also has the constructor through which we can pass the Runnable onj
 // then we can call the Thread start method from a Thread class object
 public class RunnableInterfaceImpl implements Runnable {
+
     @Override
     public void run() {
         for (int i = 0; i < 100; i++) {
             System.out.println(Thread.currentThread().getName() + " " + i);
         }
     }
-
 
     public static void main(String[] args) {
         RunnableInterfaceImpl runnableInterface = new RunnableInterfaceImpl();

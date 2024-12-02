@@ -3,7 +3,6 @@ package Topic1_Creation;
 // we can directly call start method from The Thread class object
 public class ThreadClassImpl extends Thread{
 
-
     //Run method has the code which will be working in executed in multiple threads
     @Override
     public void run(){
