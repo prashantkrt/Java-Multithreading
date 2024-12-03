@@ -8,6 +8,8 @@ public class MyThread4 implements Runnable {
             //Hints to the scheduler that the current thread is willing to pause and allow other threads of the same priority to execute.
             //Hints the scheduler to give change to another thread as well!!!
             Thread.yield();// durse thread ko chance de do
+            //will get the result in more random
+            //hints the scheduler just a hint not strictly followed
         }
     }
 
