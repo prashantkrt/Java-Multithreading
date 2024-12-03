@@ -10,6 +10,8 @@ public class MyThread5 implements Runnable {
     public void run() {
       while (true) {
           //infinite
+          //JVM intazar nhi karega
+          System.out.println(Thread.currentThread().getName()+" ->mere ko pura khatam hone de bhai JVM");
       }
     }
 
