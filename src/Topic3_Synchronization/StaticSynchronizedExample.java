@@ -33,11 +33,11 @@ class MyThread2 extends Thread {
 public class StaticSynchronizedExample {
     public static void main(String[] args) {
 
-        Counter2 counter = new Counter2();
-        MyThread2 myThread1 = new MyThread2(counter);
+        Counter2 counter1 = new Counter2(); // instance1
+        MyThread2 myThread1 = new MyThread2(counter1);
         myThread1.start();
 
-        Counter2 counter2 = new Counter2();
+        Counter2 counter2 = new Counter2(); //instance2
         MyThread2 myThread2 = new MyThread2(counter2);
         myThread2.start();
 
@@ -47,8 +47,6 @@ public class StaticSynchronizedExample {
         } catch (InterruptedException ignored) {
         }
 
-        System.out.println(Counter2.getCount());
-
-
+        System.out.println(Counter2.getCount()); // final value should be correct
     }
 }

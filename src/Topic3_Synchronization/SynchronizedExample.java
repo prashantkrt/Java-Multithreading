@@ -41,7 +41,9 @@ class MyThread extends Thread {
 
 public class SynchronizedExample {
     public static void main(String[] args) {
+        //single instance of the counter
         Counter counter = new Counter();
+        //multiple threads using a single object or instance
         MyThread myThread1 = new MyThread(counter);
         MyThread myThread2 = new MyThread(counter);
         myThread1.start();
