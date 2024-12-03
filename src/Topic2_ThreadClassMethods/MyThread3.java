@@ -8,11 +8,18 @@ public class MyThread3 extends Thread {
 
     @Override
     public void run() {
-        super.run();
+        try {
+            Thread.sleep(2000);
+            System.out.println(Thread.currentThread().getName()+"....... is running");
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void main(String[] args) {
         MyThread3 myThread3 = new MyThread3("MyThread3");
-
+        myThread3.start();
+        // main method interrupt kar degas once the MyThread ask it to do so
+        myThread3.interrupt(); // singles the main or current thread => jo bhi kaam kar rahe ho usko wahi rok do
     }
 }
