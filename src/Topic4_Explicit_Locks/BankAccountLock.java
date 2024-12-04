@@ -13,9 +13,9 @@ public class BankAccountLock {
 
     private final Lock lock = new ReentrantLock();
 
-    public void withdraw(Integer amount) {
+    public void withdraw(Integer amount) throws InterruptedException {
         System.out.println(Thread.currentThread().getName() + ": withdrawing " + amount + " from bank");
-        if (lock.tryLock()) {
+        if (lock.tryLock(5,TimeUnit.SECONDS)) {
             if (balance >= amount) {
                 balance = balance - amount;
                 try {
@@ -30,18 +30,19 @@ public class BankAccountLock {
                     throw new RuntimeException(e);
                 } finally {
                     lock.unlock();
+                    System.out.println(Thread.currentThread().getName() + "Unlocked the lock");
                 }
             } else {
                 System.out.println(Thread.currentThread().getName() + ": Insufficient balance");
             }
         } else {
-            System.out.println(Thread.currentThread().getName() + ": Waiting in the queue for resource to be uncloaked acquired by another thread :)");
+            System.out.println(Thread.currentThread().getName() + ": Could not acquire lock :)");
         }
     }
 
-    public void deposit(Integer amount) throws InterruptedException {
+    public void deposit(Integer amount){
         System.out.println(Thread.currentThread().getName() + ": deposit " + amount + " from bank");
-        if (lock.tryLock(1000, TimeUnit.NANOSECONDS)) {
+        if (lock.tryLock()) {
             if (amount > 0) {
                 balance = balance + amount;
                 try {
@@ -51,9 +52,10 @@ public class BankAccountLock {
                     throw new RuntimeException(e);
                 } finally {
                     lock.unlock();
+                    System.out.println(Thread.currentThread().getName() + "Unlocked the lock");
                 }
             } else {
-                System.out.println(Thread.currentThread().getName() + " : Insufficient amount to deposit");
+                System.out.println(Thread.currentThread().getName() + ": Could not acquire lock :)");
             }
         } else {
             System.out.println(Thread.currentThread().getName() + ": Waiting in the queue for resource to be uncloaked acquired by another thread :)");
@@ -75,11 +77,19 @@ class MainLock {
         bankAccount.setBalance(100);
 
         Thread thread1 = new Thread(() -> {
-            bankAccount.withdraw(10);
+            try {
+                bankAccount.withdraw(10);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }, "Thread1");
 
         Thread thread2 = new Thread(() -> {
-            bankAccount.withdraw(10);
+            try {
+                bankAccount.withdraw(10);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }, "Thread2");
 
         thread1.start();
