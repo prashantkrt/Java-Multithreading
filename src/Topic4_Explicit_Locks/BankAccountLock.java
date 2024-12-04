@@ -15,7 +15,7 @@ public class BankAccountLock {
 
     public void withdraw(Integer amount) throws InterruptedException {
         System.out.println(Thread.currentThread().getName() + ": withdrawing " + amount + " from bank");
-        if (lock.tryLock(5,TimeUnit.SECONDS)) {
+        if (lock.tryLock(5,TimeUnit.SECONDS)) { // lock mila toh lock karo nhi toh nikal lo
             if (balance >= amount) {
                 balance = balance - amount;
                 try {
