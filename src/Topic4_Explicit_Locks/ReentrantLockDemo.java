@@ -1,7 +1,10 @@
 package Topic4_Explicit_Locks;
 
 import java.util.concurrent.locks.ReentrantLock;
-
+//Synchronization disadvantage :
+// blocking karta hai like infinite blocking
+// Interruptiblity nhi hai
+// fairness bhi nhi hai
 public class ReentrantLockDemo {
 
     //A Reentrant Lock is a type of lock in Java that allows a thread to acquire the lock multiple times without causing a deadlock.
