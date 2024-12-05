@@ -15,6 +15,9 @@ class Pen {
 }
 
 class Paper {
+    // Since both methods (writeWithPaperAndPaper and finishedWriting) are synchronized on the same object (this),
+    // when Thread 1 enters the writeWithPaperAndPaper method and acquires the lock on the Paper object,
+    // Thread 2 cannot execute the finishedWriting method on the same Paper object until Thread 1 exits the writeWithPaperAndPaper method and releases the lock.
 
     //only one thread can execute either method at a time on the same Paper instance
     //The thread can't hold the lock for both methods simultaneously on the same object because the lock is only associated with the instance of the Paper object.
@@ -26,6 +29,10 @@ class Paper {
     public synchronized void finishedWriting() {
         System.out.println(Thread.currentThread().getName() + "Finished writing using Paper => " + this);
     }
+
+    //When Thread 1 is executing writeWithPaperAndPaper, it has acquired the lock on the Paper object (this).
+    //When Thread 2 tries to execute finishedWriting, it will be blocked because Thread 1 already holds the lock for the Paper object.
+    //Thread 2 will only be able to execute finishedWriting after Thread 1 finishes executing writeWithPaperAndPaper and releases the lock.
 
 }
 
