@@ -24,7 +24,7 @@ public class ReentrantLockDemo {
         try {
             System.out.println(Thread.currentThread().getName()+" Inside innerMethod");
         } finally {
-            lock.unlock();
+            lock.unlock(); // yaha main lock nhi khula 2nd lock jo laga hai woh unlock hoga as per the count
         }
     }
 
