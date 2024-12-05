@@ -32,6 +32,7 @@ class ReadWriteCounter {
         }
     }
 
+    // if the thread has acquired some write lock then in that case read lock cannot be acquired by other threads
     // This is useful when you have multiple threads that only need to read shared data and don’t modify it.
     // In a ReadWriteLock, multiple threads can acquire the read lock simultaneously, as long as no thread holds the write lock.
     // Multiple threads can enter and read at a time
