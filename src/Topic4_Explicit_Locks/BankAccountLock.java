@@ -27,7 +27,7 @@ public class BankAccountLock {
                     System.out.println(Thread.currentThread().getName() + ": Withdrawn amount: " + amount);
                     System.out.println(Thread.currentThread().getName() + ": Successfully withdrawn " + amount + " from bank");
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    Thread.currentThread().interrupt(); //good practice
                 } finally {
                     lock.unlock();
                     System.out.println(Thread.currentThread().getName() + "Unlocked the lock");
@@ -49,7 +49,7 @@ public class BankAccountLock {
                     System.out.println(Thread.currentThread().getName() + " : Processing the deposit request");
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    Thread.currentThread().interrupt();
                 } finally {
                     lock.unlock();
                     System.out.println(Thread.currentThread().getName() + "Unlocked the lock");
