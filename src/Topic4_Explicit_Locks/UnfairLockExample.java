@@ -7,6 +7,7 @@ public class UnfairLockExample {
 
     //private final Lock unfairLock = new ReentrantLock();
 
+    //starvation protection as the thread waiting for longer  period will be given chance
     //ensures fairness in thread acquisition only at the lock level, meaning it tries to grant the lock to the longest-waiting thread
     //However, this fairness policy doesn't guarantee strict ordering in thread execution due to the nature of thread scheduling and OS-level factors.
     private final Lock fairLock = new ReentrantLock(true); // jo pehle aae usko lock do
@@ -28,7 +29,7 @@ public class UnfairLockExample {
     public static void main(String[] args) {
         UnfairLockExample example = new UnfairLockExample();
 
-        //Arbitrary fashion of execution
+        //Arbitrary fashion of execution with unfair locking
         Thread t1 = new Thread(example::accessResource, "Thread-1");
         Thread t2 = new Thread(example::accessResource, "Thread-2");
         Thread t3 = new Thread(example::accessResource, "Thread-3");
