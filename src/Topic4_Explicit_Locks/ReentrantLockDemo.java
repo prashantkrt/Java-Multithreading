@@ -8,6 +8,8 @@ public class ReentrantLockDemo {
     private final ReentrantLock lock = new ReentrantLock();
 
     public void outerMethod() {
+        // lock.lockInterruptibly(); interrupted by other thread if wait is very lock or blocked for longer duration
+        // lock.lock() iss case me dusra thread jo wait karega woh wait karete rahega
         lock.lock(); // yaha thread ne lock critical section part ko
         try {
             System.out.println(Thread.currentThread().getName()+" Inside outerMethod");
