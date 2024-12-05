@@ -39,7 +39,7 @@ public class UnfairLockExample {
     }
 }
 // output 1 unfairLock
-//Thread-1 is acquiring lock    observation=> Even though Thread - arrived first but unable to acquire it
+//Thread-1 is acquiring lock    observation=> Even though Thread-1 - arrived first but unable to acquire it
 //Thread-2 is acquiring lock
 //Thread-2 is releasing lock
 //Thread-1 is releasing lock
@@ -47,7 +47,7 @@ public class UnfairLockExample {
 //Thread-3 is releasing lock
 
 //output 2 unfairLock
-//Thread-1 is acquiring lock  observation=> Even though Thread - arrived first but unable to acquire it
+//Thread-1 is acquiring lock  observation=> Even though Thread-1 - arrived first but unable to acquire it
 //Thread-2 is acquiring lock
 //Thread-2 is releasing lock
 //Thread-3 is acquiring lock
