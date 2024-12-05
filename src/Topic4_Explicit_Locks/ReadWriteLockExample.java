@@ -4,7 +4,6 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-
 class ReadWriteCounter {
 
     private int counter = 0;
