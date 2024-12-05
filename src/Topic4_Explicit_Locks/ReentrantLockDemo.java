@@ -5,6 +5,7 @@ import java.util.concurrent.locks.ReentrantLock;
 // blocking karta hai like infinite blocking
 // Interruptiblity nhi hai
 // fairness bhi nhi hai
+// Read Write locking nhi kar sakte sabko ek jaise treat karta hai synchronization me ,as write or read wale lock ko differentiate nhi karta
 public class ReentrantLockDemo {
 
     //A Reentrant Lock is a type of lock in Java that allows a thread to acquire the lock multiple times without causing a deadlock.
