@@ -25,7 +25,10 @@ public class Part2ThreadPoolExample {
                 System.out.println(result);
             });
         }
+        // this generally initials the shutdown
+        // wait for all the threads to complete the execution
         executorService.shutdown(); // to manually shut down else, it will keep on going
+       // executorService.shutdownNow(); // immediately shuts
         try {
             executorService.awaitTermination(5, TimeUnit.SECONDS); // main threads will wait for executor
         } catch (InterruptedException e) {
