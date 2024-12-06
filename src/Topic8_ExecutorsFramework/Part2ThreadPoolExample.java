@@ -3,7 +3,8 @@ package Topic8_ExecutorsFramework;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-
+// Future allows you to check if the task is complete, retrieve the result, or cancel the task if needed.
+// The Future allows you to track the progress or result of the task.
 public class Part2ThreadPoolExample {
     private static long factorial(int n) {
         long result = 1;
