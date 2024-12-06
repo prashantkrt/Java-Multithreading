@@ -2,6 +2,7 @@ package Topic8_ExecutorsFramework;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Part2ThreadPoolExample {
     private static long factorial(int n) {
@@ -25,6 +26,11 @@ public class Part2ThreadPoolExample {
             });
         }
         executorService.shutdown(); // to manually shut down else, it will keep on going
-        System.out.println();
+        try {
+            executorService.awaitTermination(5, TimeUnit.SECONDS); // main threads will wait for executor
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Main Thread Ended!!");
     }
 }
