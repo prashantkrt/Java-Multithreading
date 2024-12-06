@@ -5,7 +5,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-public class SubmitRunnableExample {
+public class Part4SubmitRunnableExample {
     public static void main(String[] args) {
         ExecutorService executor = Executors.newFixedThreadPool(2);
 
@@ -24,7 +24,8 @@ public class SubmitRunnableExample {
 
         try {
             // Block and wait for the task to complete
-            future.get();
+            Object o = future.get();
+            System.out.println(o); //null
             System.out.println("Task completed successfully.");
         } catch (InterruptedException e) {
             System.err.println("Task was interrupted.");

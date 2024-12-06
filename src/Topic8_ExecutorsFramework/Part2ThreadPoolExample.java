@@ -3,7 +3,7 @@ package Topic8_ExecutorsFramework;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ThreadPoolExample {
+public class Part2ThreadPoolExample {
     private static long factorial(int n) {
         long result = 1;
         for (int i = 1; i <= n; i++) {

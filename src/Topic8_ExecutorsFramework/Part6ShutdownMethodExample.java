@@ -3,7 +3,7 @@ package Topic8_ExecutorsFramework;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ShutdownMethodExample {
+public class Part6ShutdownMethodExample {
     public static void main(String[] args) {
         try (ExecutorService executor = Executors.newFixedThreadPool(2)) {
 

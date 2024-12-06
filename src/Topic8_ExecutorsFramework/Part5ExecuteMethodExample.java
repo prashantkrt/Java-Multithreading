@@ -4,7 +4,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 // The execute() method is used to execute a Runnable task but does not return a Future.
 // This means you cannot track the task or retrieve its result.
-public class ExecuteMethodExample {
+public class Part5ExecuteMethodExample {
     public static void main(String[] args) {
         ExecutorService executor = Executors.newFixedThreadPool(2);
 

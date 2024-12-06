@@ -3,7 +3,7 @@ package Topic8_ExecutorsFramework;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RequirementOfThreadPool{
+public class Part1RequirementOfThreadPool{
 
     private static long calculateFactorial(int n) {
         try {

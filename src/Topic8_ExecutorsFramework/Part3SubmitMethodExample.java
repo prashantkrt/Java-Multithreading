@@ -4,7 +4,7 @@ import java.util.concurrent.*;
 
 // The submit() method submits a task (callable or runnable) for execution and returns a Future.
 // The Future allows you to track the progress or result of the task.
-public class SubmitMethodExample {
+public class Part3SubmitMethodExample {
     public static void main(String[] args) {
         try (ExecutorService executor = Executors.newFixedThreadPool(3)) {
 
