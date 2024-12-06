@@ -16,6 +16,8 @@ public class Part10InvokeAllMethodExample {
         );
 
         List<Future<Integer>> results = executor.invokeAll(tasks);
+        //suppose if I use
+        //executor.invokeAll(tasks,5,TimeUnit.SECONDS);// within this time if some task unable to complete automatically gets canceled
 
         for (Future<Integer> result : results) {
             try {
