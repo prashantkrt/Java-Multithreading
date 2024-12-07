@@ -33,7 +33,7 @@ public class Part8FutureExample {
             Integer result = future.get();
             System.out.println("Task result: " + result);
 
-            Integer resultTimedWaited = future.get(4, TimeUnit.SECONDS);
+            Integer resultTimedWaited = future.get(4, TimeUnit.SECONDS); // throws TimeoutException, if it isn't getting the value on the given time
             System.out.println("Task result: " + resultTimedWaited);
 
         } catch (InterruptedException e) {
