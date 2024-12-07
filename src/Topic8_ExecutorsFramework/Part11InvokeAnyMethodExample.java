@@ -8,26 +8,32 @@ import java.util.concurrent.*;
 // It cancels the remaining tasks once one finishes.
 public class Part11InvokeAnyMethodExample {
     public static void main(String[] args) {
-        ExecutorService executor = Executors.newFixedThreadPool(3);
+        try (ExecutorService executor = Executors.newFixedThreadPool(3)) {
 
-        List<Callable<String>> tasks = Arrays.asList(
-                () -> {
-                    Thread.sleep(1000);
-                    return "Task 1";
-                },
-                () -> {
-                    Thread.sleep(500);
-                    return "Task 2";
-                },
-                () -> "Task 3"
-        );
+            List<Callable<String>> tasks = Arrays.asList(
+                    () -> {
+                        Thread.sleep(1000);
+                        System.out.println(Thread.currentThread().getName());
+                        return "Task 1";
+                    },
+                    () -> {
+                        Thread.sleep(500);
+                        System.out.println(Thread.currentThread().getName());
+                        return "Task 2";
+                    },
+                    () -> {
+                        System.out.println(Thread.currentThread().getName());
+                        return "Task 3";
+                    }
+            );
 
-        try {
-            String result = executor.invokeAny(tasks); // Returns the first completed result
-            System.out.println("First completed task: " + result);
-        } catch (CancellationException | InterruptedException | ExecutionException e) {
-            System.out.println(e.getMessage());
+            try {
+                String result = executor.invokeAny(tasks); // Returns the first completed result
+                System.out.println("First completed task: " + result);
+            } catch (CancellationException | InterruptedException | ExecutionException e) {
+                System.out.println(e.getMessage());
+            }
+            executor.shutdown();
         }
-        executor.shutdown();
     }
 }
