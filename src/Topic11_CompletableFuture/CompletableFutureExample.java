@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutionException;
 
 // A higher-level abstraction that extends Future with built-in mechanisms for chaining, handling exceptions, and combining multiple tasks without explicitly managing threads.
 // It's non-blocking and provides cleaner, more maintainable asynchronous code.
-public class CompletableFutureExample1 {
+public class CompletableFutureExample{
     public static void main(String[] args) {
         // Start an asynchronous task
         CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
