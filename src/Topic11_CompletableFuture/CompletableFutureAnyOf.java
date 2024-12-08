@@ -2,7 +2,6 @@ package Topic11_CompletableFuture;
 
 import java.util.concurrent.CompletableFuture;
 
-
 //Waits for any one of multiple CompletableFuture tasks to finish.
 //anyOf() waits for the first task to complete, regardless of which one finishes first. You can then process the result of the first task.
 public class CompletableFutureAnyOf {
