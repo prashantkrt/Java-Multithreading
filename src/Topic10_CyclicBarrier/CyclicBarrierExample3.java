@@ -5,7 +5,7 @@ import java.util.concurrent.*;
 public class CyclicBarrierExample3 {
     public static void main(String[] args) throws InterruptedException, BrokenBarrierException, TimeoutException {
         // Create a CyclicBarrier for 3 threads
-        CyclicBarrier barrier = new CyclicBarrier(3);
+        CyclicBarrier barrier = new CyclicBarrier(4);
 
         // First set of threads
         ExecutorService executor = Executors.newFixedThreadPool(3);
@@ -37,10 +37,15 @@ public class CyclicBarrierExample3 {
             }
         });
 
-        // After the first phase, reset the barrier to reuse
-        barrier.reset(); // Reset a barrier to initial state for reuse
+        // Main thread also waits at the barrier in the first phase
+        System.out.println("Main thread waiting for workers to reach the barrier...");
+        barrier.await(); // Barrier trips when 4 participants reach it
+        System.out.println("Main thread proceeding after first phase...");
 
-        System.out.println("Barrier has been reset, reusing barrier...");
+        // Reset barrier for reuse
+        barrier.reset();
+        System.out.println("Barrier has been reset for the second phase...");
+
 
         // Second set of threads (same barrier)
         executor.submit(() -> {
@@ -73,11 +78,18 @@ public class CyclicBarrierExample3 {
         });
 
 
-        // Wait for all threads in the second phase
-        System.out.println("Main thread waiting for workers to reach the barrier in second phase.");
-        barrier.await();
-        System.out.println("Main thread completed.");
+        // Main thread also waits at the barrier in the second phase
+        System.out.println("Main thread waiting for workers to reach the barrier in second phase...");
+        barrier.await(); // Barrier trips again
+        System.out.println("Main thread completed after second phase.");
         executor.shutdown();
+
+        //also we can add optional not needed
+        //t returns a boolean value that indicates whether the service terminated successfully or not within the given timeout.
+        if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+            executor.shutdownNow();
+        }
+
 
     }
 }
