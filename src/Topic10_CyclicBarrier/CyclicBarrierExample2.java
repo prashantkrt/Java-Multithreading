@@ -2,99 +2,60 @@ package Topic10_CyclicBarrier;
 
 import java.util.concurrent.*;
 
+class CallableImpl2 implements Callable<String> {
+
+    private static int count = 0;
+
+    private final CyclicBarrier barrier;
+
+    public CallableImpl2(CyclicBarrier barrier) {
+        this.barrier = barrier;
+    }
+
+    @Override
+    public String call() {
+        try {
+            Thread.sleep(1000);
+            int currentCount = incrementCount(); // Increment the count in a thread-safe manner
+            System.out.println(Thread.currentThread().getName() + " Service Started!!!" + " barrier await count " + currentCount);
+            barrier.await();
+            return "ok";
+        } catch (InterruptedException | BrokenBarrierException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
+        }
+    }
+
+    private synchronized int incrementCount() {
+        return ++count;
+    }
+}
+
+
+//We can reuse the CyclicBarrier
 public class CyclicBarrierExample2 {
-    public static void main(String[] args) throws InterruptedException, BrokenBarrierException, TimeoutException {
-        // Create a CyclicBarrier for 3 threads
-        CyclicBarrier barrier = new CyclicBarrier(3);
+    public static void main(String[] args) throws InterruptedException, BrokenBarrierException {
+        int threadCount = 10;
+        ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
 
-        // First set of threads
-        ExecutorService executor = Executors.newFixedThreadPool(3);
+        CyclicBarrier barrier = new CyclicBarrier(threadCount+1); // one for main
 
-        executor.submit(() -> {
-            try {
-                System.out.println(Thread.currentThread().getName() + " reached barrier.");
-                barrier.await(); // All threads wait here until count reaches 0
-            } catch (InterruptedException | BrokenBarrierException e) {
-                System.out.println("Exception: " + e);
-            }
-            finally {
-                barrier.reset();
-            }
-        });
+        executorService.submit(new CallableImpl2(barrier)); //1
+        executorService.submit(new CallableImpl2(barrier)); //2
+        executorService.submit(new CallableImpl2(barrier)); //3
+        executorService.submit(new CallableImpl2(barrier)); //4
+        executorService.submit(new CallableImpl2(barrier)); //5
+        executorService.submit(new CallableImpl2(barrier)); //6
+        executorService.submit(new CallableImpl2(barrier)); //7
+        executorService.submit(new CallableImpl2(barrier)); //8
+        executorService.submit(new CallableImpl2(barrier)); //9
+        executorService.submit(new CallableImpl2(barrier)); //10
 
-        executor.submit(() -> {
-            try {
-                System.out.println(Thread.currentThread().getName() + " reached barrier.");
-                barrier.await();
-            } catch (InterruptedException | BrokenBarrierException e) {
-                System.out.println("Exception: " + e);
-            }
-            finally {
-                barrier.reset();
-            }
-        });
-
-        executor.submit(() -> {
-            try {
-                System.out.println(Thread.currentThread().getName() + " reached barrier.");
-                barrier.await();
-            } catch (InterruptedException | BrokenBarrierException e) {
-                System.out.println("Exception: " + e);
-            }
-            finally {
-                barrier.reset();
-            }
-        });
-
-        // After the first phase, reset the barrier to reuse
-         barrier.reset(); // Reset a barrier to initial state for reuse
-
-        System.out.println("Barrier has been reset, reusing barrier...");
-
-        // Second set of threads (same barrier)
-        executor.submit(() -> {
-            try {
-                System.out.println(Thread.currentThread().getName() + " reached barrier in second phase.");
-                barrier.await(); // Threads wait again after reset
-            } catch (InterruptedException | BrokenBarrierException e) {
-                System.out.println("Exception: " + e);
-            }
-            finally {
-                barrier.reset();
-            }
-        });
-
-        executor.submit(() -> {
-            try {
-                System.out.println(Thread.currentThread().getName() + " reached barrier in second phase.");
-                barrier.await();
-            } catch (InterruptedException | BrokenBarrierException e) {
-                System.out.println("Exception: " + e);
-            }
-            finally {
-                barrier.reset();
-            }
-        });
-
-        executor.submit(() -> {
-            try {
-                System.out.println(Thread.currentThread().getName() + " reached barrier in second phase.");
-                barrier.await();
-            } catch (InterruptedException | BrokenBarrierException e) {
-                System.out.println("Exception: " + e);
-            }
-            finally {
-                barrier.reset();
-            }
-        });
-
-
-        // Wait for all threads in the second phase
-        System.out.println("Main thread waiting for workers to reach the barrier in second phase.");
-        barrier.await();
-        barrier.reset();
-        executor.shutdown();
-        System.out.println("Main thread completed.");
+        // Wait for all threads to complete their tasks
+        System.out.println("Main thread waiting for all worker threads to reach the barrier...");
+        barrier.await(); // The Main thread will wait until all threads reach the barrier
+        System.out.println("Main thread completed...");
+        executorService.shutdown();
 
     }
 }
