@@ -32,3 +32,11 @@ public class CompletableFutureExample{
         }
     }
 }
+
+//Very Important
+//In the methods like supplyAsync(), runAsync(), thenApply(), thenAccept(), thenRun(), thenCompose(), and exceptionally(), the main thread does not wait for the computation to complete.
+//These methods return immediately and execute the tasks asynchronously, without blocking the calling thread.s
+
+
+//Blocking
+//get(), join()

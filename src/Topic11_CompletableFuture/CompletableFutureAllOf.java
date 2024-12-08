@@ -20,6 +20,7 @@ public class CompletableFutureAllOf {
             }
         });
 
-//      s
+        System.out.println("Main thread completed!");
+
     }
 }

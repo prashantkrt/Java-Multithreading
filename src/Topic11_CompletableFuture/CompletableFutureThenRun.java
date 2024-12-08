@@ -14,6 +14,6 @@ public class CompletableFutureThenRun {
         future.thenRun(() -> {
             System.out.println(Thread.currentThread().getName() + " - Task Completed !!!");
         });
-        Thread.sleep(1000); // Wait to let the async task complete
+        future.join();
     }
 }
